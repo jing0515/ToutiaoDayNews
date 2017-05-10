@@ -11,7 +11,7 @@ import com.bwei.slidingmenu.app.SlidingFragmentActivity;
 
 
 public class MainActivity extends SlidingFragmentActivity {
-///dddddddddddddddddddddddddddddddddddddddddddddddddddddd
+///dddddddddddddddddddddddd
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
