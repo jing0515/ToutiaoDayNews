@@ -8,10 +8,15 @@ import com.bawei.lvwenjing.daynews.silpingmenu_fragment.SilpingMenu_left;
 import com.bawei.lvwenjing.daynews.silpingmenu_fragment.SilpingMenu_rigth;
 import com.bwei.slidingmenu.SlidingMenu;
 import com.bwei.slidingmenu.app.SlidingFragmentActivity;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 
 public class MainActivity extends SlidingFragmentActivity {
-///dddddddddddddddddddddddd
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,14 +24,14 @@ public class MainActivity extends SlidingFragmentActivity {
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
 
-        a();
+      
         //这是注解王学士
         //设么情况
 
     }
 
 
-public void a(){}
+
 
     private void initLeftRight() {
         Fragment leftFragment = new SilpingMenu_left();
@@ -57,5 +62,101 @@ public void a(){}
 
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, rightMenuFragment).commit();
     }
+    public void loadQQ() {
+        UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, new UMAuthListener() {
+            @Override
+            public void onStart(SHARE_MEDIA share_media) {
+                System.out.println("onStart" + share_media);
+            }
 
+            @Override
+            public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                System.out.println("onComplete" + share_media);
+                String uid = map.get("uid");
+                String name = map.get("name");
+                String gender = map.get("gender");
+                String iconurl = map.get("iconurl");
+                System.out.println("iconurl = " + iconurl);
+                System.out.println("uid = " + uid);
+                System.out.println("name = " + name);
+                System.out.println("gender = " + gender);
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+                System.out.println("onError" + share_media);
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA share_media, int i) {
+                System.out.println("onCancel" + share_media);
+            }
+        });
+    }
+
+    //王学士  微信登录
+    public void loadweixin() {
+        UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, new UMAuthListener() {
+            @Override
+            public void onStart(SHARE_MEDIA share_media) {
+                System.out.println("onStart" + share_media);
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                System.out.println("onComplete" + share_media);
+                String uid = map.get("uid");
+                String name = map.get("name");
+                String gender = map.get("gender");
+                String iconurl = map.get("iconurl");
+                System.out.println("iconurl = " + iconurl);
+                System.out.println("uid = " + uid);
+                System.out.println("name = " + name);
+                System.out.println("gender = " + gender);
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+                System.out.println("onError" + share_media);
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA share_media, int i) {
+                System.out.println("onCancel" + share_media);
+            }
+        });
+    }
+
+    //王学士  新浪登录
+    public void loadSIna() {
+        UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, new UMAuthListener() {
+            @Override
+            public void onStart(SHARE_MEDIA share_media) {
+                System.out.println("onStart" + share_media);
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                System.out.println("onComplete" + share_media);
+                String uid = map.get("uid");
+                String name = map.get("name");
+                String gender = map.get("gender");
+                String iconurl = map.get("iconurl");
+                System.out.println("iconurl = " + iconurl);
+                System.out.println("uid = " + uid);
+                System.out.println("name = " + name);
+                System.out.println("gender = " + gender);
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+                System.out.println("onError" + share_media);
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA share_media, int i) {
+                System.out.println("onCancel" + share_media);
+            }
+        });
+    }
 }
