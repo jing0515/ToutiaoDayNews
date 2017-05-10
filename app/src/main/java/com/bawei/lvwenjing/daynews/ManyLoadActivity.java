@@ -1,7 +1,9 @@
 package com.bawei.lvwenjing.daynews;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +25,33 @@ public class ManyLoadActivity extends Activity {
         phoneLoad = (Button) findViewById(R.id.zhuce_bt_phoneload);
         zhuce = (Button) findViewById(R.id.zhuce_bt_zhucenow);
         fanhui = (TextView) findViewById(R.id.zhuce_tv_fanhui);
+
+        phoneLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(ManyLoadActivity.this,PhoneLoadActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        zhuce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ManyLoadActivity.this,PhoneZhuceActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
 
 
 

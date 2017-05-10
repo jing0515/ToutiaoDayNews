@@ -29,4 +29,5 @@ dependencies {
     compile project(':slidingmenu')
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'org.xutils:xutils:3.5.0'
 }

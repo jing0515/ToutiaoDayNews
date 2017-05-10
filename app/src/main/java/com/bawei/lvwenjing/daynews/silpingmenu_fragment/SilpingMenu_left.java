@@ -8,15 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import java.util.Map;
+import com.bawei.lvwenjing.daynews.ManyLoadActivity;
 
 
 /**
@@ -28,6 +24,7 @@ public class SilpingMenu_left extends Fragment {
     private ImageButton tengxunweibo;
     private ImageButton qq;
     private ImageButton weibo;
+    private TextView manyload;
 
     @Nullable
     @Override
@@ -43,22 +40,37 @@ public class SilpingMenu_left extends Fragment {
         tengxunweibo = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_tengxun_weibo);
         qq = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_QQ);
         weibo = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_weibo);
+        manyload = (TextView) view.findViewById(R.id.silpingmenu_rigth_manyload);
+        manyload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ManyLoadActivity.class);
+                startActivity(intent);
+            }
+        });
         tengxunweibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MainActivity().loadweixin();
+                System.out.println("weibo\" = " + "weibo");
+                MainActivity mainActivity1 = (MainActivity) getActivity();
+                mainActivity1.loadweixin();
+
             }
         });
         qq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MainActivity().loadQQ();
+                System.out.println("weibo\" = " + "qq");
+                MainActivity mainActivity2 = (MainActivity) getActivity();
+                mainActivity2.loadQQ();
             }
         });
         weibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MainActivity().loadSIna();
+                System.out.println("weibo\" = " + "weibo11");
+                MainActivity mainActivity3 = (MainActivity) getActivity();
+                mainActivity3.loadSIna();
             }
         });
 

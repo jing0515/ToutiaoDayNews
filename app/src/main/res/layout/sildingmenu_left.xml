@@ -18,21 +18,21 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/silpingmenu_rigth_tengxun_weibo"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_drawer_tencent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/silpingmenu_rigth_QQ"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_drawer_qzone" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/silpingmenu_rigth_weibo"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -42,6 +42,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/silpingmenu_rigth_manyload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
 
     >
     <LinearLayout
@@ -13,6 +14,7 @@
 
 
 <TextView
+    android:id="@+id/zhuce_tv_fanhui"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="返回"/>
@@ -24,9 +26,23 @@
         android:text="登录今日头条"/>
     </LinearLayout>
     <Button
+    android:id="@+id/zhuce_bt_phoneload"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="手机号登录"
+    />
+    <Button
+        android:id="@+id/zhuce_bt_zhucenow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="注册新账号"
+        />
+    <TextView
 
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="------   其他方式登录   ------"/>
 
 
 </LinearLayout>
