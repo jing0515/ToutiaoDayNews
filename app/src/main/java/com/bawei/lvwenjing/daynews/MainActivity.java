@@ -15,7 +15,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import java.util.Map;
 
 
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends SlidingFragmentActivity  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,8 @@ public class MainActivity extends SlidingFragmentActivity {
         setContentView(R.layout.activity_main);
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
+       // loadQQ();
 
-      
         //这是注解王学士
         //设么情况
 
@@ -35,9 +35,9 @@ public class MainActivity extends SlidingFragmentActivity {
 
     private void initLeftRight() {
         Fragment leftFragment = new SilpingMenu_left();
-        setBehindContentView(R.layout.sildingmenu_left);
+        setBehindContentView(R.layout.left);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, leftFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.left, leftFragment).commit();
 
         SlidingMenu slidingMenu = getSlidingMenu();
         // 设置slidingmenu滑动的方式
@@ -58,9 +58,9 @@ public class MainActivity extends SlidingFragmentActivity {
         SilpingMenu_rigth rightMenuFragment = new SilpingMenu_rigth();
 
 
-        slidingMenu.setSecondaryMenu(R.layout.sildingmenu_rigth);
+        slidingMenu.setSecondaryMenu(R.layout.right);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, rightMenuFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.right, rightMenuFragment).commit();
     }
     public void loadQQ() {
         UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, new UMAuthListener() {
