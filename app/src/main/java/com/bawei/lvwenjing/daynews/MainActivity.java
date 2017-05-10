@@ -19,10 +19,14 @@ public class MainActivity extends SlidingFragmentActivity {
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
 
+        a();
+        //这是注解王学士
+        //设么情况
+
     }
 
 
-
+public void a(){}
 
     private void initLeftRight() {
         Fragment leftFragment = new SilpingMenu_left();
