@@ -11,4 +11,23 @@
     <color name="tablayout_bg">#ECECEC</color>
 
     <color name="color_window">#44000000</color>
+
+
+
+
+    <color name="colorAccent_night">#a72b55</color>
+
+    <color name="textColor1">#FF0000</color>
+
+    <color name="textColor1_night">#FFFFFF</color>
+
+
+    <color name="textColor">#FF000000</color>
+
+    <color name="textColor_night">#FFFFFF</color>
+
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="backgroundColor_night">#3b3b3b</color>
+
+
 </resources>
