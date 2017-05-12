@@ -20,9 +20,11 @@
 
 
         <TextView
+            android:id="@+id/lianxi_activity_xiazai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center"
             android:text="离线下载"
             android:textSize="25sp"
@@ -42,10 +44,10 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="26dp"
+        android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="我的频道"
         android:textSize="20sp"
@@ -53,9 +55,9 @@
         />
 
     <ScrollView
-     android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,11 +79,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_tuijian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -102,11 +104,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_redian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -127,11 +129,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_beijing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -152,11 +154,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_shehui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -177,11 +179,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_yule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -202,11 +204,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_keji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -227,11 +229,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_car"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -252,11 +254,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_caijing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -277,11 +279,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_junshi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -302,11 +304,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_tiyu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -327,11 +329,11 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_duanzi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
@@ -351,14 +353,15 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_meinv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -374,14 +377,15 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_guoji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -397,14 +401,15 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_jiankang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -420,11 +425,12 @@
                     android:textSize="23sp" />
 
                 <CheckBox
-                    android:checked="true"
                     android:id="@+id/download_fangchan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                    android:layout_marginRight="15dp"
+                    android:checked="true"
+                    android:clickable="true" />
 
 
             </LinearLayout>

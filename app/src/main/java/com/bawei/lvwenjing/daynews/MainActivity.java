@@ -28,8 +28,6 @@ public class MainActivity extends SlidingFragmentActivity  {
     }
 
 
-
-
     private void initLeftRight() {
         Fragment leftFragment = new SilpingMenu_left();
         setBehindContentView(R.layout.left);

@@ -1,8 +1,11 @@
 package com.bawei.lvwenjing.daynews;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.TextView;
 
 import com.bawei.lvwenjing.daynews.Fragment.TitleFragmet;
 import com.bawei.lvwenjing.daynews.silpingmenu_fragment.SilpingMenu_left;
@@ -17,14 +20,30 @@ import java.util.Map;
 
 
 public class LianxiDoemActivity extends Activity {
-//吕文静
+
+    private TextView tuijian_tv;
+
+    //吕文静
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lianxiactivity);
 
+        init();
+    }
 
+    //吕文静下载页面
+    private void init() {
+        tuijian_tv = (TextView) findViewById(R.id.lianxi_activity_xiazai);
+        tuijian_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LianxiDoemActivity.this);
+                builder.setTitle("移动网络离线下载会使用较多流量，是否继续？");
+
+            }
+        });
     }
 
 
-    }
+}
