@@ -2,8 +2,10 @@ package com.bawei.lvwenjing.daynews;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bawei.lvwenjing.daynews.Fragment.TitleFragmet;
+import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 import com.bawei.lvwenjing.daynews.silpingmenu_fragment.SilpingMenu_left;
 import com.bawei.lvwenjing.daynews.silpingmenu_fragment.SilpingMenu_rigth;
 import com.bwei.slidingmenu.SlidingMenu;
@@ -11,6 +13,10 @@ import com.bwei.slidingmenu.app.SlidingFragmentActivity;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
 
@@ -24,7 +30,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
       //wangxueshisss
-
+        EventBus.getDefault().register(this);
 
     }
 
@@ -154,5 +160,23 @@ public class MainActivity extends SlidingFragmentActivity  {
                 System.out.println("onCancel" + share_media);
             }
         });
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(YeJianEvent event) {
+        View view=new View(this);
+        if(event.isYeJian()){
+            //夜间模式
+            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+
+        }
+        //白天模式
+        else{
+            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        }
+    };
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

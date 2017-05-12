@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -16,7 +19,9 @@ import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.ManyLoadActivity;
 import com.bawei.lvwenjing.daynews.SetingActivity;
+import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -29,29 +34,49 @@ public class SilpingMenu_left extends Fragment {
     private ImageView qq;
     private ImageView weibo;
     private TextView manyload;
-    private RadioButton lixianrb;
-    private RadioButton shexhiru;
+    private Button lixianrb;
+    private CheckBox yejianbt;
+    private Button shexhiru;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sildingmenu_left, container, false);
+        view = inflater.inflate(R.layout.sildingmenu_left, container, false);
         inintView(view);
 
         return view;
     }
 
     //王学士   初始化视图
-    private void inintView(View view) {
-        lixianrb = (RadioButton) view.findViewById(R.id.slipngmeun_left_lixian_rb);
+    private void inintView(final View view) {
+        lixianrb = (Button) view.findViewById(R.id.slipngmeun_left_lixian_rb);
         tengxunweibo = (ImageView) view.findViewById(R.id.silpingmenu_rigth_tengxun_weibo);
         qq = (ImageView) view.findViewById(R.id.silpingmenu_rigth_QQ);
         weibo = (ImageView) view.findViewById(R.id.silpingmenu_rigth_weibo);
         manyload = (TextView) view.findViewById(R.id.silpingmenu_rigth_manyload);
-        shexhiru = (RadioButton) view.findViewById(R.id.slipngmeun_left_shezhi_rb);
+        shexhiru = (Button) view.findViewById(R.id.slipngmeun_left_shezhi_rb);
+        yejianbt = (CheckBox) view.findViewById(R.id.slipngmeun_left_yejian_rb);
+    yejianbt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            EventBus.getDefault().post(new YeJianEvent(isChecked));
+            if(isChecked){
+          //夜间模式
+           view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+
+            }
+            //白天模式
+            else{
+                view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+
+            }
+        }
+    });
         shexhiru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getActivity(), SetingActivity.class));
             }
         });

@@ -11,17 +11,25 @@ import android.view.ViewGroup;
 
 import com.bawei.lvwenjing.daynews.Adapters.IndextAdapter;
 import com.bawei.lvwenjing.daynews.R;
+import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by lenovo-pc on 2017/5/9.
  */
 
 public class TitleFragmet extends Fragment {
+
+    private View view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.titlefragmet, container, false);
-
+        view = inflater.inflate(R.layout.titlefragmet, container, false);
+        EventBus.getDefault().register(this);
         //获取控件
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.table);
         ViewPager viewPager = (ViewPager)  view.findViewById(R.id.viewpager);
@@ -37,5 +45,23 @@ public class TitleFragmet extends Fragment {
 //模式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         return view;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(YeJianEvent event) {
+
+        if(event.isYeJian()){
+            //夜间模式
+            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+
+        }
+        //白天模式
+        else{
+            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        }
+    };
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
