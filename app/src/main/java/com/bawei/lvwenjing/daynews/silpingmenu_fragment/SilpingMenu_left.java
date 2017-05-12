@@ -23,7 +23,6 @@ import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
-
 /**
  * Created by lenovo-pc on 2017/5/9.
  */
