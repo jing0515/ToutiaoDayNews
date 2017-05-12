@@ -13,11 +13,11 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/gengduo_iv"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="2dp"
-
             android:src="@drawable/btn_back_detail_normal" />
 
         <TextView

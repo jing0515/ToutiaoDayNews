@@ -18,7 +18,6 @@ import com.bawei.lvwenjing.daynews.ManyLoadActivity;
 import com.bawei.lvwenjing.daynews.SetingActivity;
 
 
-
 /**
  * Created by lenovo-pc on 2017/5/9.
  */
