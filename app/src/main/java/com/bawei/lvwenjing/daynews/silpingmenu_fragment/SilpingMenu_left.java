@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bawei.lvwenjing.daynews.LianxiDoemActivity;
 import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.ManyLoadActivity;
@@ -21,10 +23,11 @@ import com.bawei.lvwenjing.daynews.ManyLoadActivity;
 
 public class SilpingMenu_left extends Fragment {
 
-    private ImageButton tengxunweibo;
-    private ImageButton qq;
-    private ImageButton weibo;
+    private ImageView tengxunweibo;
+    private ImageView qq;
+    private ImageView weibo;
     private TextView manyload;
+    private RadioButton lixianrb;
 
     @Nullable
     @Override
@@ -37,14 +40,21 @@ public class SilpingMenu_left extends Fragment {
 
     //王学士   初始化视图
     private void inintView(View view) {
-        tengxunweibo = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_tengxun_weibo);
-        qq = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_QQ);
-        weibo = (ImageButton) view.findViewById(R.id.silpingmenu_rigth_weibo);
+        lixianrb = (RadioButton) view.findViewById(R.id.slipngmeun_left_lixian_rb);
+        tengxunweibo = (ImageView) view.findViewById(R.id.silpingmenu_rigth_tengxun_weibo);
+        qq = (ImageView) view.findViewById(R.id.silpingmenu_rigth_QQ);
+        weibo = (ImageView) view.findViewById(R.id.silpingmenu_rigth_weibo);
         manyload = (TextView) view.findViewById(R.id.silpingmenu_rigth_manyload);
+        lixianrb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LianxiDoemActivity.class));
+            }
+        });
         manyload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), ManyLoadActivity.class);
+                Intent intent = new Intent(getActivity(), ManyLoadActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +88,6 @@ public class SilpingMenu_left extends Fragment {
     }
 
     //王学士  QQ登录
-
 
 
 }

@@ -15,28 +15,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/silpingmenu_rigth_tengxun_weibo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:src="@drawable/ic_drawer_tencent" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/silpingmenu_rigth_QQ"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:src="@drawable/ic_drawer_qzone" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/silpingmenu_rigth_weibo"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:src="@drawable/ic_drawer_weibo" />
 
         </LinearLayout>
@@ -61,6 +65,8 @@
         android:orientation="vertical">
 
         <ScrollView
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -172,69 +178,65 @@
             </LinearLayout>
         </ScrollView>
 
-
-        <LinearLayout
-
+        <RadioGroup
+            android:id="@+id/slipngmeun_left_rg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/slipngmeun_left_lixian_rb"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_lixian_selector"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/slipngmeun_left_yejian_rb"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+
+                android:background="@drawable/btn_yeijian_selector"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/slipngmeun_left_shezhi_rb"
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/btn_lselect_selector"
+                android:button="@null" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/slipngmeun_left_lixian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="离线下载" />
+
+            <TextView
+                android:id="@+id/slipngmeun_left_yejian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:text="夜间模式" />
+
+            <TextView
+                android:id="@+id/slipngmeun_left_shezhi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_lixian_selector" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="离线下载" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_yeijian_selector" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="夜间模式" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/silpingmenu_shezhi"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_lselect_selector" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="设置" />
-            </LinearLayout>
+                android:text="设置" />
         </LinearLayout>
 
     </LinearLayout>

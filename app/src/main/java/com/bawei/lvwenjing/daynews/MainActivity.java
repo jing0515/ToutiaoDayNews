@@ -16,17 +16,15 @@ import java.util.Map;
 
 
 public class MainActivity extends SlidingFragmentActivity  {
-
+//ddddd
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
-       // loadQQ();
 
-        //这是注解王学士
-        //设么情况
+
 
     }
 

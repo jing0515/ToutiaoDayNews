@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 //王学士，注册界面
@@ -12,7 +13,7 @@ public class ManyLoadActivity extends Activity {
 
     private Button phoneLoad;
     private Button zhuce;
-    private TextView fanhui;
+    private ImageView fanhui;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class ManyLoadActivity extends Activity {
     private void initView() {
         phoneLoad = (Button) findViewById(R.id.zhuce_bt_phoneload);
         zhuce = (Button) findViewById(R.id.zhuce_bt_zhucenow);
-        fanhui = (TextView) findViewById(R.id.zhuce_tv_fanhui);
+        fanhui = (ImageView) findViewById(R.id.zhuce_tv_fanhui);
 
         phoneLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,13 +50,5 @@ public class ManyLoadActivity extends Activity {
                 finish();
             }
         });
-
-
-
-
-
-
-
-
-    }
+  }
 }
