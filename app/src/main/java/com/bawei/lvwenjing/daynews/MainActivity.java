@@ -20,7 +20,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //ssssxddd
+        //ssssxddffd
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
       //wangxueshisss
