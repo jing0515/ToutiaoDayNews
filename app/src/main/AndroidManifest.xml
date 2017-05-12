@@ -71,6 +71,7 @@
         <activity android:name=".PhoneLoadActivity" />
         <activity android:name=".PhoneZhuceActivity"></activity>
         <activity android:name=".LianxiDoemActivity" />
+        <activity android:name=".SetingActivity" />
     </application>
 
 </manifest>

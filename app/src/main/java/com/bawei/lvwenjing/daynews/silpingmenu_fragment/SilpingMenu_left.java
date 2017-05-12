@@ -15,7 +15,8 @@ import com.bawei.lvwenjing.daynews.LianxiDoemActivity;
 import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.ManyLoadActivity;
-import com.bawei.lvwenjing.daynews.SettingActivity;
+import com.bawei.lvwenjing.daynews.SetingActivity;
+
 
 
 /**
@@ -51,7 +52,7 @@ public class SilpingMenu_left extends Fragment {
         shexhiru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                startActivity(new Intent(getActivity(), SetingActivity.class));
             }
         });
         lixianrb.setOnClickListener(new View.OnClickListener() {
