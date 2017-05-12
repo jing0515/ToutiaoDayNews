@@ -23,7 +23,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         //ssssxddd
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
-
+      //wangxueshi
 
 
     }
