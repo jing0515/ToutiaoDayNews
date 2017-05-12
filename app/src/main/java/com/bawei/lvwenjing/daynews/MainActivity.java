@@ -16,7 +16,6 @@ import java.util.Map;
 
 
 public class MainActivity extends SlidingFragmentActivity  {
-//ddddd
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +23,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
 
-
+//ccccccc
 
     }
 
