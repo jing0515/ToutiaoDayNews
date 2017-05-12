@@ -15,6 +15,7 @@ import com.bawei.lvwenjing.daynews.LianxiDoemActivity;
 import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.ManyLoadActivity;
+import com.bawei.lvwenjing.daynews.SettingActivity;
 
 
 /**
@@ -28,6 +29,7 @@ public class SilpingMenu_left extends Fragment {
     private ImageView weibo;
     private TextView manyload;
     private RadioButton lixianrb;
+    private RadioButton shexhiru;
 
     @Nullable
     @Override
@@ -45,6 +47,13 @@ public class SilpingMenu_left extends Fragment {
         qq = (ImageView) view.findViewById(R.id.silpingmenu_rigth_QQ);
         weibo = (ImageView) view.findViewById(R.id.silpingmenu_rigth_weibo);
         manyload = (TextView) view.findViewById(R.id.silpingmenu_rigth_manyload);
+        shexhiru = (RadioButton) view.findViewById(R.id.slipngmeun_left_shezhi_rb);
+        shexhiru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+            }
+        });
         lixianrb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
