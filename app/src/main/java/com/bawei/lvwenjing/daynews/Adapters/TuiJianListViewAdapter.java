@@ -58,8 +58,6 @@ public class TuiJianListViewAdapter extends BaseAdapter {
         holder1.title.setText(list.get(position).getTitle());
         holder1.from.setText(list.get(position).getSource());
         Glide.with(context).load(list.get(position).getMiddle_image().getUrl()).into(holder1.iv);
-
-
         return convertView;
     }
     class ViewHolder1{
