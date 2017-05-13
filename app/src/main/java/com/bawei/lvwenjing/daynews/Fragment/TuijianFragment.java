@@ -1,6 +1,8 @@
 package com.bawei.lvwenjing.daynews.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,8 +41,18 @@ public class TuijianFragment extends Fragment {
     private String category;
     private Gson gson;
     private TuiJianListViewAdapter tuiJianListViewAdapter;
-    private String page0="&loc_mode=";
-    private int pageInt=0;
+    private String page0="&min_behot_time=";
+    private List<TabTitleFragmentBean.DataBean> listData;
+    private int pageInt=1494642113;
+    private Handler handler=new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            List<TabTitleFragmentBean.DataBean> listData1 = (List<TabTitleFragmentBean.DataBean>) msg.obj;
+
+        }
+    };
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,31 +70,33 @@ public class TuijianFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getShuju(path0+category+page0+pageInt,0);
-    }
-
-    private void initView(View view) {
-        springView = (SpringView) view.findViewById(R.id.tuijianfragment_springview);
-        listView = (ListView) view.findViewById(R.id.tuijianfragment_listivew);
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
-       springView.setType(SpringView.Type.FOLLOW);
+        springView.setType(SpringView.Type.FOLLOW);
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                pageInt--;
+                pageInt-=10000000;
                 getShuju(path0+category+page0+pageInt,1);
-
+                springView.onFinishFreshAndLoad();
             }
 
 
 
             @Override
             public void onLoadmore() {
-                pageInt++;
+                pageInt+=10000000;
                 getShuju(path0+category+page0+pageInt,2);
-
+                springView.onFinishFreshAndLoad();
             }
         });
+
+    }
+
+    private void initView(View view) {
+        springView = (SpringView) view.findViewById(R.id.tuijianfragment_springview);
+        listView = (ListView) view.findViewById(R.id.tuijianfragment_listivew);
+
 
     }
 
@@ -111,7 +125,7 @@ public class TuijianFragment extends Fragment {
         x.http().get(entity, new Callback.CommonCallback<String>() {
 
 
-            private List<TabTitleFragmentBean.DataBean> listData;
+
 
             @Override
             public void onSuccess(String result) {
@@ -120,22 +134,29 @@ public class TuijianFragment extends Fragment {
                 TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
                 listData = tabTitleFragmentBean.getData();
                 tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
-                 listView.setAdapter(tuiJianListViewAdapter);}
-         else if(type==1){
+                 listView.setAdapter(tuiJianListViewAdapter);
+         }
+          else if(type==1){
+             System.out.println("111111111");
                   TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
                   List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
+//             Message msg=Message.obtain();
+//             msg.obj=listData1;
+//             handler.sendMessage(msg);
              listData.clear();
              listData.addAll(listData1);
-              tuiJianListViewAdapter.notifyDataSetChanged();
+             tuiJianListViewAdapter.notifyDataSetChanged();
 
-}
-else if(type==2){
+               }
+       else if(type==2){
+             System.out.println("2222222222");
     TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
     List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
 
     listData.addAll(listData.size(),listData1);
     tuiJianListViewAdapter.notifyDataSetChanged();
-   //停止加载更多
+
+
 }
 
             }
