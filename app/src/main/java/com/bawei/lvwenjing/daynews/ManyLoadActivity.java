@@ -8,8 +8,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 //王学士，注册界面
 public class ManyLoadActivity extends Activity {
+    // 默认是日间模式
+    private int theme = R.style.AppTheme;
 
     private Button phoneLoad;
     private Button zhuce;
@@ -18,6 +26,7 @@ public class ManyLoadActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
        setContentView(R.layout.activity_zhu_ce);
         initView();
     }
@@ -51,4 +60,29 @@ public class ManyLoadActivity extends Activity {
             }
         });
   }
+        @Subscribe(threadMode =ThreadMode.MAIN ,sticky = true)
+        public void onMessageEvent(YeJianEvent event) {
+            //View view=new View(this);
+
+
+//        if(event.isYeJian()){
+//            theme = R.style.NightAppTheme ;
+//            MainActivity.this.recreate();
+//            //夜间模式
+//           // view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+//
+//        }
+//        //白天模式
+//        else{
+//            theme =  R.style.AppTheme;
+//            MainActivity.this.recreate();
+//         //   view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+//        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

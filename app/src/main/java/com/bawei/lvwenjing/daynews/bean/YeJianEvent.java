@@ -5,17 +5,30 @@ package com.bawei.lvwenjing.daynews.bean;
  */
 
 public class YeJianEvent {
-    boolean isYeJian;
+//    boolean isYeJian;
+//
+//    public YeJianEvent(boolean isYeJian) {
+//        this.isYeJian = isYeJian;
+//    }
+//
+//    public boolean isYeJian() {
+//        return isYeJian;
+//    }
+//
+//    public void setYeJian(boolean yeJian) {
+//        isYeJian = yeJian;
+//    }
+    private int theme;
 
-    public YeJianEvent(boolean isYeJian) {
-        this.isYeJian = isYeJian;
+    public YeJianEvent(int theme) {
+        this.theme = theme;
     }
 
-    public boolean isYeJian() {
-        return isYeJian;
+    public int getTheme() {
+        return theme;
     }
 
-    public void setYeJian(boolean yeJian) {
-        isYeJian = yeJian;
+    public void setTheme(int theme) {
+        this.theme = theme;
     }
 }

@@ -22,15 +22,24 @@ import java.util.Map;
 
 
 public class MainActivity extends SlidingFragmentActivity  {
+
+    // 默认是日间模式
+    private int theme = R.style.AppTheme;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            theme = savedInstanceState.getInt("theme");
+            setTheme(theme);
+        }
+
         setContentView(R.layout.activity_main);
         //ssssxddffd
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
       //wangxueshisss
         EventBus.getDefault().register(this);
+
 
     }
 
@@ -163,20 +172,42 @@ public class MainActivity extends SlidingFragmentActivity  {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(YeJianEvent event) {
-        View view=new View(this);
-        if(event.isYeJian()){
-            //夜间模式
-            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+        //View view=new View(this);
 
-        }
-        //白天模式
-        else{
-            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-        }
+        theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+        MainActivity.this.recreate();
+
+//        if(event.isYeJian()){
+//            theme = R.style.NightAppTheme ;
+//            MainActivity.this.recreate();
+//            //夜间模式
+//           // view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+//
+//        }
+//        //白天模式
+//        else{
+//            theme =  R.style.AppTheme;
+//            MainActivity.this.recreate();
+//         //   view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+//        }
     };
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("theme", theme);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        theme = savedInstanceState.getInt("theme");
+    }
+
 }

@@ -37,7 +37,7 @@ public class SilpingMenu_left extends Fragment {
     private CheckBox yejianbt;
     private Button shexhiru;
     private View view;
-
+    private int theme ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,20 +56,31 @@ public class SilpingMenu_left extends Fragment {
         manyload = (TextView) view.findViewById(R.id.silpingmenu_rigth_manyload);
         shexhiru = (Button) view.findViewById(R.id.slipngmeun_left_shezhi_rb);
         yejianbt = (CheckBox) view.findViewById(R.id.slipngmeun_left_yejian_rb);
+
+
+   //夜间模式
     yejianbt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            EventBus.getDefault().post(new YeJianEvent(isChecked));
+
+
             if(isChecked){
+                theme = R.style.NightAppTheme;
+             //   EventBus.getDefault().post(new YeJianEvent(theme));
           //夜间模式
-           view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+      //     view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
 
             }
             //白天模式
             else{
-                view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+                theme = R.style.AppTheme;
+        //        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor
 
             }
+            //EventBus.getDefault().postSticky(new YeJianEvent(theme));
+
+
+
         }
     });
         shexhiru.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +99,7 @@ public class SilpingMenu_left extends Fragment {
         manyload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), ManyLoadActivity.class);
                 startActivity(intent);
             }
@@ -121,7 +133,11 @@ public class SilpingMenu_left extends Fragment {
 
     }
 
-    //王学士  QQ登录
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
 }
