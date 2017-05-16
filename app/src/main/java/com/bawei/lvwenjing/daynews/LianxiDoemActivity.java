@@ -93,14 +93,9 @@ public class LianxiDoemActivity extends Activity {
 
     //吕文静网络请求
     private void get() {
-
         String pathTitle="http://ic.snssdk.com/article/category/get/v2/?iid=2939228904";
         RequestParams entity=new RequestParams(pathTitle);
-
         x.http().get(entity,new Callback.CommonCallback<String>() {
-
-
-
             @Override
             public void onSuccess(String result) {
                 TabTitle tabTitle = gson.fromJson(result, TabTitle.class);
