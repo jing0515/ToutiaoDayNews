@@ -1,8 +1,10 @@
 package com.bawei.lvwenjing.daynews;
 
+import android.graphics.PixelFormat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.bawei.lvwenjing.daynews.Fragment.TitleFragmet;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
@@ -22,23 +24,26 @@ import java.util.Map;
 
 
 public class MainActivity extends SlidingFragmentActivity  {
+    private View view;
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams layoutParams;
 
-    // 默认是日间模式
-    private int theme = R.style.AppTheme;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null){
-            theme = savedInstanceState.getInt("theme");
-            setTheme(theme);
-        }
+
 
         setContentView(R.layout.activity_main);
-        //ssssxddffd
+
+        initGrayBackgroud();
+
         initLeftRight();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
       //wangxueshisss
-        EventBus.getDefault().register(this);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+
 
 
     }
@@ -172,42 +177,71 @@ public class MainActivity extends SlidingFragmentActivity  {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(YeJianEvent event) {
-        //View view=new View(this);
 
-        theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
-        MainActivity.this.recreate();
+        if(event.isYeJian()){
 
-//        if(event.isYeJian()){
-//            theme = R.style.NightAppTheme ;
-//            MainActivity.this.recreate();
-//            //夜间模式
-//           // view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-//
-//        }
-//        //白天模式
-//        else{
-//            theme =  R.style.AppTheme;
-//            MainActivity.this.recreate();
-//         //   view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-//        }
+        }
+        //白天模式
+        else{
+
+        }
     };
 
+
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        windowManager.removeViewImmediate(view);
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("theme", theme);
+
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        theme = savedInstanceState.getInt("theme");
+
     }
 
+    //日夜
+    public void initGrayBackgroud() {
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+//        应用程序窗口。 WindowManager.LayoutParams.TYPE_APPLICATION
+//        所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。
+//        普通应用功能程序窗口。token必须设置为Activity的token，以指出该窗口属谁。
+
+        //无焦点 无触摸事件    支撑透明
+
+
+//        后面的view获得焦点
+        layoutParams = new WindowManager.LayoutParams
+                (WindowManager.LayoutParams.TYPE_APPLICATION,WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        PixelFormat.TRANSPARENT);
+        view = new View(this);
+
+        view.setBackgroundResource(R.color.color_window);
+
+    }
+    // 日 夜切换
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainActivityEvent(YeJianEvent event) {
+        System.out.println("isChecked = " + event.isYeJian());
+
+        if (event.isYeJian()) {
+            // true 夜
+            windowManager.addView(view, layoutParams);
+
+        } else {
+            // 日
+            windowManager.removeViewImmediate(view);
+
+        }
+    }
 }

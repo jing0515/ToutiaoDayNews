@@ -63,17 +63,17 @@ public class SilpingMenu_left extends Fragment {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
+            EventBus.getDefault().postSticky(new YeJianEvent(isChecked));
             if(isChecked){
-                theme = R.style.NightAppTheme;
-             //   EventBus.getDefault().post(new YeJianEvent(theme));
+
+
           //夜间模式aaaaaaaaaa
       //     view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
 
             }
             //白天模式
             else{
-                theme = R.style.AppTheme;
+
         //        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor
 
             }

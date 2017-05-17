@@ -200,7 +200,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
-
+                android:checked="false"
                 android:background="@drawable/btn_yeijian_selector"
                 android:button="@null" />
 

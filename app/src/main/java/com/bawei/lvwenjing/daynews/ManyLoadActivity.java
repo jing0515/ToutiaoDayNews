@@ -2,8 +2,11 @@ package com.bawei.lvwenjing.daynews;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,9 +26,16 @@ public class ManyLoadActivity extends Activity {
     private Button zhuce;
     private ImageView fanhui;
 
+    private View view;
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams layoutParams;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initGrayBackgroud();
         EventBus.getDefault().register(this);
        setContentView(R.layout.activity_zhu_ce);
         initView();
@@ -60,29 +70,48 @@ public class ManyLoadActivity extends Activity {
             }
         });
   }
-        @Subscribe(threadMode =ThreadMode.MAIN ,sticky = true)
-        public void onMessageEvent(YeJianEvent event) {
-            //View view=new View(this);
 
-
-//        if(event.isYeJian()){
-//            theme = R.style.NightAppTheme ;
-//            MainActivity.this.recreate();
-//            //夜间模式
-//           // view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-//
-//        }
-//        //白天模式
-//        else{
-//            theme =  R.style.AppTheme;
-//            MainActivity.this.recreate();
-//         //   view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-//        }
-    };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        windowManager.removeViewImmediate(view);
     }
+    // 日 夜切换
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onMainActivityEvent(YeJianEvent event) {
+        System.out.println("manyloadActity = " + event.isYeJian());
+
+        if (event.isYeJian()) {
+            // true 夜
+            windowManager.addView(view, layoutParams);
+
+        } else {
+            // 日
+            windowManager.removeViewImmediate(view);
+
+        }
+    }
+    //日夜
+    public void initGrayBackgroud() {
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+//        应用程序窗口。 WindowManager.LayoutParams.TYPE_APPLICATION
+//        所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。
+//        普通应用功能程序窗口。token必须设置为Activity的token，以指出该窗口属谁。
+
+        //无焦点 无触摸事件    支撑透明
+
+
+//        后面的view获得焦点
+        layoutParams = new WindowManager.LayoutParams
+                (WindowManager.LayoutParams.TYPE_APPLICATION,WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        PixelFormat.TRANSPARENT);
+        view = new View(this);
+
+        view.setBackgroundResource(R.color.color_window);
+
+    }
+
 }
