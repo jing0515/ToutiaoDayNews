@@ -18,4 +18,5 @@ public class YeJianEvent {
     public void setYeJian(boolean yeJian) {
         isYeJian = yeJian;
     }
+
 }

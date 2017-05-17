@@ -62,15 +62,15 @@ public class TitleFragmet extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(YeJianEvent event) {
 
-        if(event.isYeJian()){
-            //夜间模式
-            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-
-        }
-        //白天模式
-        else{
-            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-        }
+//        if(event.isYeJian()){
+//            //夜间模式
+//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
+//
+//        }
+//        //白天模式
+//        else{
+//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+//        }
     };
     @Override
     public void onDestroy() {
