@@ -35,19 +35,20 @@ public class TitleFragmet extends Fragment {
     private Gson gson;
     private List<TabTitle.DataBeanX.DataBean> tabdata=new ArrayList<>();
     private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.titlefragmet, container, false);
-        EventBus.getDefault().register(this);
+      
         gson = new Gson();
-        getTitle();
+
         //获取控件
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.table);
+        tabLayout = (TabLayout) view.findViewById(R.id.table);
         viewPager = (ViewPager)  view.findViewById(R.id.viewpager);
         //获取适配器
-
+        getTitle();
 
         //绑定
         tabLayout.setupWithViewPager(viewPager);
@@ -59,35 +60,26 @@ public class TitleFragmet extends Fragment {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         return view;
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(YeJianEvent event) {
 
-//        if(event.isYeJian()){
-//            //夜间模式
-//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-//
-//        }
-//        //白天模式
-//        else{
-//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-//        }
-    };
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+      
     }
 
 
     public void getTitle() {
         String pathTitle="http://ic.snssdk.com/article/category/get/v2/?iid=2939228904";
         RequestParams entity=new RequestParams(pathTitle);
+        entity.setConnectTimeout(5000);
+        entity.setReadTimeout(5000);
+
 
         x.http().get(entity,new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 TabTitle tabTitle = gson.fromJson(result, TabTitle.class);
-
+                System.out.println("tabTitle.getData().getData().size() = " + tabTitle.getData().getData().size());
                 tabdata.addAll(tabTitle.getData().getData());
 
                 IndextAdapter adapter = new IndextAdapter(getChildFragmentManager(),tabdata);
@@ -98,6 +90,8 @@ public class TitleFragmet extends Fragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+
+
 
             }
 
