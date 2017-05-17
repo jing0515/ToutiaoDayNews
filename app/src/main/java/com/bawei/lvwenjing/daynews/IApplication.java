@@ -17,8 +17,7 @@ import java.io.File;
  */
 //王学士
 public class IApplication extends Application {
-    DbManager.DaoConfig daoConfig;
-
+    private   static DbManager.DaoConfig  daoConfig;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,10 +27,17 @@ public class IApplication extends Application {
         PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
-
+        initDB();
     }
 
-    //吕文静建立数据库
+    //加载数据库   牛琼琼
+    public   static DbManager.DaoConfig initDB(){
+
+        daoConfig = new DbManager.DaoConfig().setDbName("Nqq.db").setDbVersion(1);
+
+        return  daoConfig;
+    }
+  /*  //吕文静建立数据库
     public void getDaoConfig() {
         File file = new File(Environment.getExternalStorageDirectory().getPath());
         if (daoConfig == null) {
@@ -47,5 +53,5 @@ public class IApplication extends Application {
                         }
                     });
         }
-    }
+    }*/
 }

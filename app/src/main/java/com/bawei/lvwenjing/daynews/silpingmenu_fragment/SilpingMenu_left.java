@@ -121,7 +121,7 @@ public class SilpingMenu_left extends Fragment {
 
     }
 
-    //王学士  QQ登录
+
 
 
 }
