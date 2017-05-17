@@ -67,7 +67,7 @@ public class SilpingMenu_left extends Fragment {
             if(isChecked){
                 theme = R.style.NightAppTheme;
              //   EventBus.getDefault().post(new YeJianEvent(theme));
-          //夜间模式
+          //夜间模式aaaaaaaaaa
       //     view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
 
             }
