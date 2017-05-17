@@ -5,10 +5,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bawei.lvwenjing.daynews.Adapters.TuiJianListViewAdapter;
 import com.bawei.lvwenjing.daynews.R;
@@ -88,6 +90,7 @@ public class TuijianFragment extends Fragment {
                 pageInt+=10000000;
                 getShuju(path0+category+page0+pageInt,2);
                 springView.onFinishFreshAndLoad();
+
             }
         });
 
@@ -135,6 +138,15 @@ public class TuijianFragment extends Fragment {
                 listData = tabTitleFragmentBean.getData();
                 tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
                  listView.setAdapter(tuiJianListViewAdapter);
+
+             if(category.equals("news_local")){
+                 TextView tv=new TextView(getActivity());
+
+                 tv.setText("请选择城市");
+                 listView.addHeaderView(tv);
+             }
+
+
          }
           else if(type==1){
              System.out.println("111111111");

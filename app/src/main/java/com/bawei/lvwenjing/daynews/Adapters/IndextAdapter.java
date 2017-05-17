@@ -36,6 +36,7 @@ public class IndextAdapter extends FragmentPagerAdapter {
         String category = tabdata.get(position).getCategory();
         TuijianFragment tuijianFragment =  new TuijianFragment() ;
 
+     
             Bundle bundle = new Bundle();
             bundle.putString("category",category);
             tuijianFragment.setArguments(bundle);
@@ -60,6 +61,7 @@ public class IndextAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        System.out.println("tabdata.get(position).getCategory() = " + tabdata.get(position).getCategory());
         return tabdata.get(position).getName() ;
     }
 }
