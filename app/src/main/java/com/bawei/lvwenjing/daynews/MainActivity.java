@@ -31,18 +31,19 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        setContentView(R.layout.activity_main);
-
-        initGrayBackgroud();
-
-        initLeftRight();
-        getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment, new TitleFragmet()).commit();
-      //wangxueshisss
+        //是否订阅
         if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
+
+        setContentView(R.layout.activity_main);
+        TitleFragmet titleFragmet = new TitleFragmet();
+        getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment,titleFragmet).commit();
+        initGrayBackgroud();
+
+        initLeftRight();
+
+
 
 
 
@@ -194,6 +195,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+
         windowManager.removeViewImmediate(view);
     }
 
