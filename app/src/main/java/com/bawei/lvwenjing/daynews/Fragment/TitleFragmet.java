@@ -1,5 +1,6 @@
 package com.bawei.lvwenjing.daynews.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,11 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bawei.lvwenjing.daynews.Adapters.IndextAdapter;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitle;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
+
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,12 +39,23 @@ public class TitleFragmet extends Fragment {
     private List<TabTitle.DataBeanX.DataBean> tabdata=new ArrayList<>();
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ImageView ivjia;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.titlefragmet, container, false);
-      
+        ivjia = (ImageView) view.findViewById(R.id.titlefragment_iv);
+
+        ivjia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //调转 tab选项；
+            //    startActivity(new Intent(getActivity(), ChannelActivity.class));
+
+            }
+        });
+
         gson = new Gson();
 
         //获取控件
