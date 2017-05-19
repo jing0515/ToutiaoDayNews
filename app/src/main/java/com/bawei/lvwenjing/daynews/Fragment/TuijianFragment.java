@@ -1,5 +1,6 @@
 package com.bawei.lvwenjing.daynews.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bawei.lvwenjing.daynews.Adapters.TuiJianListViewAdapter;
+import com.bawei.lvwenjing.daynews.CtriyActivity;
+import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitleFragmentBean;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
@@ -39,14 +43,14 @@ public class TuijianFragment extends Fragment {
     private View view;
     private SpringView springView;
     private ListView listView;
-    private String path0="http://ic.snssdk.com/2/article/v25/stream/?category=";
+    private String path0 = "http://ic.snssdk.com/2/article/v25/stream/?category=";
     private String category;
     private Gson gson;
     private TuiJianListViewAdapter tuiJianListViewAdapter;
-    private String page0="&min_behot_time=";
+    private String page0 = "&min_behot_time=";
     private List<TabTitleFragmentBean.DataBean> listData;
-    private int pageInt=1494642113;
-    private Handler handler=new Handler() {
+    private int pageInt = 1494642113;
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -55,11 +59,12 @@ public class TuijianFragment extends Fragment {
 
         }
     };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tuijianfragment, container, false);
-     //   EventBus.getDefault().register(this);
+        //   EventBus.getDefault().register(this);
         initView(view);
         Bundle arguments = getArguments();
         category = arguments.getString("category");
@@ -71,24 +76,23 @@ public class TuijianFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getShuju(path0+category+page0+pageInt,0);
+        getShuju(path0 + category + page0 + pageInt, 0);
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
         springView.setType(SpringView.Type.FOLLOW);
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                pageInt-=10000000;
-                getShuju(path0+category+page0+pageInt,1);
+                pageInt -= 10000000;
+                getShuju(path0 + category + page0 + pageInt, 1);
                 springView.onFinishFreshAndLoad();
             }
 
 
-
             @Override
             public void onLoadmore() {
-                pageInt+=10000000;
-                getShuju(path0+category+page0+pageInt,2);
+                pageInt += 10000000;
+                getShuju(path0 + category + page0 + pageInt, 2);
                 springView.onFinishFreshAndLoad();
 
             }
@@ -106,16 +110,10 @@ public class TuijianFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(YeJianEvent event) {
 
-//        if(event.isYeJian()){
-//            //夜间模式
-//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-//
-//        }
-//        //白天模式
-//        else{
-//            view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-//        }
-    };
+    }
+
+    ;
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -124,52 +122,49 @@ public class TuijianFragment extends Fragment {
 
     public void getShuju(String path, final int type) {
 
-        RequestParams entity=new RequestParams(path);
+        RequestParams entity = new RequestParams(path);
         x.http().get(entity, new Callback.CommonCallback<String>() {
-
-
 
 
             @Override
             public void onSuccess(String result) {
-         if(type==0){
+                if (type == 0) {
 
-                TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-                listData = tabTitleFragmentBean.getData();
-                tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
-                 listView.setAdapter(tuiJianListViewAdapter);
-
-             if(category.equals("news_local")){
-                 TextView tv=new TextView(getActivity());
-
-                 tv.setText("请选择城市");
-                 listView.addHeaderView(tv);
-             }
-
-
-         }
-          else if(type==1){
-             System.out.println("111111111");
-                  TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-                  List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
-//             Message msg=Message.obtain();
-//             msg.obj=listData1;
-//             handler.sendMessage(msg);
-             listData.clear();
-             listData.addAll(listData1);
-             tuiJianListViewAdapter.notifyDataSetChanged();
-
-               }
-       else if(type==2){
-             System.out.println("2222222222");
-    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-    List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
-
-    listData.addAll(listData.size(),listData1);
-    tuiJianListViewAdapter.notifyDataSetChanged();
+                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
+                    listData = tabTitleFragmentBean.getData();
+                    tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
+                    listView.setAdapter(tuiJianListViewAdapter);
+                   //进行判断
+                    if (category.equals("news_local")) {
+                        TextView tv = new TextView(getActivity());
+                        tv.setText("请选择城市");
+                        tv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                 startActivity(new Intent(getActivity(), CtriyActivity.class));
+                            }
+                        });
+                        listView.addHeaderView(tv);
+                    }
 
 
-}
+                } else if (type == 1) {
+                    System.out.println("111111111");
+                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
+                    List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
+                    listData.clear();
+                    listData.addAll(listData1);
+                    tuiJianListViewAdapter.notifyDataSetChanged();
+
+                } else if (type == 2) {
+                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
+                    List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
+
+                    listData.addAll(listData.size(), listData1);
+                    tuiJianListViewAdapter.notifyDataSetChanged();
+
+
+                }
 
             }
 

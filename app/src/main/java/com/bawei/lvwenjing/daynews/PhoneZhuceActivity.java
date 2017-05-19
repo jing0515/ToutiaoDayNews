@@ -62,11 +62,6 @@ public class PhoneZhuceActivity extends Activity {
 
             @Override
             public void onSuccess(String result) {
-
-                System.out.println("result = " + result);
-                Toast.makeText(PhoneZhuceActivity.this, result, Toast.LENGTH_SHORT).show();
-
-
             }
 
             @Override
