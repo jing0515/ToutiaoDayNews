@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bawei.lvwenjing.daynews.Adapters.IndextAdapter;
+import com.bawei.lvwenjing.daynews.IApplication;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitle;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 
 import com.bawei.lvwenjing.daynews.newsdrag.ChannelActivity;
+import com.bawei.lvwenjing.daynews.newsdrag.bean.HttpBean;
+import com.bawei.lvwenjing.daynews.newsdrag.bean.HttpBeanManage;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,26 +37,26 @@ import java.util.List;
  */
 
 public class TitleFragmet extends Fragment {
-
+     private List<HttpBean.DataBeanX.DataBean> userChannelList;
     private View view;
     private Gson gson;
     private List<TabTitle.DataBeanX.DataBean> tabdata=new ArrayList<>();
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView ivjia;
+    private IndextAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.titlefragmet, container, false);
         ivjia = (ImageView) view.findViewById(R.id.titlefragment_iv);
-
+        EventBus.getDefault().register(this);
         ivjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //调转 tab选项；
                startActivity(new Intent(getActivity(), ChannelActivity.class));
-
             }
         });
 
@@ -63,7 +66,13 @@ public class TitleFragmet extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.table);
         viewPager = (ViewPager)  view.findViewById(R.id.viewpager);
         //获取适配器
-        getTitle();
+         getTitle();
+         userChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel());
+
+
+        adapter = new IndextAdapter(getChildFragmentManager(),userChannelList,tabdata);
+
+        viewPager.setAdapter(adapter);
 
         //绑定
         tabLayout.setupWithViewPager(viewPager);
@@ -94,12 +103,12 @@ public class TitleFragmet extends Fragment {
             @Override
             public void onSuccess(String result) {
                 TabTitle tabTitle = gson.fromJson(result, TabTitle.class);
-                System.out.println("tabTitle.getData().getData().size() = " + tabTitle.getData().getData().size());
+
                 tabdata.addAll(tabTitle.getData().getData());
 
-                IndextAdapter adapter = new IndextAdapter(getChildFragmentManager(),tabdata);
+              //  IndextAdapter adapter = new IndextAdapter(getChildFragmentManager(),tabdata);
 
-                viewPager.setAdapter(adapter);
+             //   viewPager.setAdapter(adapter);
 
             }
 
@@ -122,5 +131,14 @@ public class TitleFragmet extends Fragment {
         });
 
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainActivityEvent(String a) {
+
+                userChannelList.clear();
+                ArrayList<HttpBean.DataBeanX.DataBean> userChannel = (ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel();
+                userChannelList.addAll(userChannel);
+                adapter.notifyDataSetChanged();
     }
 }

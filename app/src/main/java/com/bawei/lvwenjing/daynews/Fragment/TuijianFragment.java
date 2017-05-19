@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import com.bawei.lvwenjing.daynews.Adapters.TuiJianListViewAdapter;
 import com.bawei.lvwenjing.daynews.CtriyActivity;
+import com.bawei.lvwenjing.daynews.IApplication;
 import com.bawei.lvwenjing.daynews.MainActivity;
 import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitleFragmentBean;
+import com.bawei.lvwenjing.daynews.bean.TuiJianBean;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
+
 import com.google.gson.Gson;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
@@ -32,6 +35,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,24 +52,27 @@ public class TuijianFragment extends Fragment {
     private Gson gson;
     private TuiJianListViewAdapter tuiJianListViewAdapter;
     private String page0 = "&min_behot_time=";
-    private List<TabTitleFragmentBean.DataBean> listData;
+    private List<TuiJianBean.DataBean> listData=new ArrayList<>();
+    // private ArrayList<HttpBean.DataBeanX.DataBean> userChannelList;
     private int pageInt = 1494642113;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            int what = msg.what;
-            List<TabTitleFragmentBean.DataBean> listData1 = (List<TabTitleFragmentBean.DataBean>) msg.obj;
-
-        }
-    };
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            int what = msg.what;
+//            List<TabTitleFragmentBean.DataBean> listData1 = (List<TabTitleFragmentBean.DataBean>) msg.obj;
+//
+//        }
+//    };
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tuijianfragment, container, false);
-        //   EventBus.getDefault().register(this);
+
+
         initView(view);
+     
         Bundle arguments = getArguments();
         category = arguments.getString("category");
         gson = new Gson();
@@ -112,7 +119,6 @@ public class TuijianFragment extends Fragment {
 
     }
 
-    ;
 
     @Override
     public void onDestroy() {
@@ -130,18 +136,21 @@ public class TuijianFragment extends Fragment {
             public void onSuccess(String result) {
                 if (type == 0) {
 
-                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-                    listData = tabTitleFragmentBean.getData();
+                    TuiJianBean tuiJianBean = gson.fromJson(result,TuiJianBean.class);
+                    List<TuiJianBean.DataBean> data = tuiJianBean.getData();
+
+                 //   System.out.println("data.size()+data.get(0).getTitle() = " + data.size()+data.get(0).getTitle());
+                    listData.addAll(data);
                     tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
                     listView.setAdapter(tuiJianListViewAdapter);
-                   //进行判断
+                    //进行判断
                     if (category.equals("news_local")) {
                         TextView tv = new TextView(getActivity());
                         tv.setText("请选择城市");
                         tv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                 startActivity(new Intent(getActivity(), CtriyActivity.class));
+                                startActivity(new Intent(getActivity(), CtriyActivity.class));
                             }
                         });
                         listView.addHeaderView(tv);
@@ -150,17 +159,16 @@ public class TuijianFragment extends Fragment {
 
                 } else if (type == 1) {
                     System.out.println("111111111");
-                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-                    List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
+                    TuiJianBean tuiJianBean = gson.fromJson(result, TuiJianBean.class);
+                    List<TuiJianBean.DataBean> data1 = tuiJianBean.getData();
                     listData.clear();
-                    listData.addAll(listData1);
+                    listData.addAll(data1);
                     tuiJianListViewAdapter.notifyDataSetChanged();
 
                 } else if (type == 2) {
-                    TabTitleFragmentBean tabTitleFragmentBean = gson.fromJson(result, TabTitleFragmentBean.class);
-                    List<TabTitleFragmentBean.DataBean> listData1 = tabTitleFragmentBean.getData();
-
-                    listData.addAll(listData.size(), listData1);
+                    TuiJianBean tuiJianBean = gson.fromJson(result, TuiJianBean.class);
+                    List<TuiJianBean.DataBean> data1 = tuiJianBean.getData();
+                    listData.addAll(listData.size(), data1);
                     tuiJianListViewAdapter.notifyDataSetChanged();
 
 

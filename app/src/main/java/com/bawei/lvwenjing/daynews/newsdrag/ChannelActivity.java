@@ -21,12 +21,15 @@ import android.widget.TextView;
 
 import com.bawei.lvwenjing.daynews.IApplication;
 import com.bawei.lvwenjing.daynews.R;
+import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 import com.bawei.lvwenjing.daynews.newsdrag.adapter.HttpDragAdapter;
 import com.bawei.lvwenjing.daynews.newsdrag.adapter.HttpOtherAdapter;
 import com.bawei.lvwenjing.daynews.newsdrag.bean.HttpBean;
 import com.bawei.lvwenjing.daynews.newsdrag.bean.HttpBeanManage;
 import com.bawei.lvwenjing.daynews.newsdrag.view.DragGrid;
 import com.bawei.lvwenjing.daynews.newsdrag.view.OtherGridView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,7 @@ public class ChannelActivity extends Activity implements OnItemClickListener {
         initView();
         initData();
         TextView tv= (TextView) findViewById(R.id.my_category_text);
+
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,43 +82,6 @@ public class ChannelActivity extends Activity implements OnItemClickListener {
     private void initData() {
        userChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel());
        otherChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>)HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getOtherChannel());
-//        RequestParams entity=new RequestParams("http://ic.snssdk.com/article/category/get/v2/?iid=2939228904");
-//        x.http().get(entity, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Gson gson=new Gson();
-//                HttpBean httpBean = gson.fromJson(result, HttpBean.class);
-//                List<HttpBean.DataBeanX.DataBean> data = httpBean.getData().getData();
-//                for(HttpBean.DataBeanX.DataBean da:data){
-//                    if(da.getDefault_add()==1){
-//                        userChannelList.add(da);
-//                    }
-//                    else{
-//                        otherChannelList.add(da);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
-
-
-
-
 
 
        // userAdapter = new DragAdapter(this, userChannelList);
@@ -310,11 +277,17 @@ public class ChannelActivity extends Activity implements OnItemClickListener {
         HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).deleteAllChannel();
         HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).saveUserChannel(userAdapter.getChannnelLst());
         HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).saveOtherChannel(otherAdapter.getChannnelLst());
+
+
+
     }
 
     @Override
     public void onBackPressed() {
         saveChannel();
+        //更新tab中的选项
+        EventBus.getDefault().post("");
+
         super.onBackPressed();
     }
 }
