@@ -27,7 +27,6 @@ public class MainActivity extends SlidingFragmentActivity  {
     private View view;
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +34,11 @@ public class MainActivity extends SlidingFragmentActivity  {
         if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
-
         setContentView(R.layout.activity_main);
         TitleFragmet titleFragmet = new TitleFragmet();
         getSupportFragmentManager().beginTransaction().replace(R.id.title_fragment,titleFragmet).commit();
         initGrayBackgroud();
-
         initLeftRight();
-
-
-
-
-
     }
 
 
