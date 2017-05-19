@@ -75,6 +75,7 @@
         <activity android:name=".LianxiDoemActivity" />
         <activity android:name=".SetingActivity" />
         <activity android:name=".CtriyActivity" />
+        <activity android:name=".newsdrag.ChannelActivity"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitle;
 import com.bawei.lvwenjing.daynews.bean.YeJianEvent;
 
+import com.bawei.lvwenjing.daynews.newsdrag.ChannelActivity;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,7 +52,7 @@ public class TitleFragmet extends Fragment {
             @Override
             public void onClick(View v) {
                 //调转 tab选项；
-            //    startActivity(new Intent(getActivity(), ChannelActivity.class));
+               startActivity(new Intent(getActivity(), ChannelActivity.class));
 
             }
         });
