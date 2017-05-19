@@ -25,10 +25,6 @@ public class IndextAdapter extends FragmentPagerAdapter {
         this.tabdata = tabdata;
     }
 
-//    public IndextAdapter(FragmentManager fragmentManager){
-//        super(fragmentManager);
-//    }
-
     @Override
     public Fragment getItem(int position) {
 

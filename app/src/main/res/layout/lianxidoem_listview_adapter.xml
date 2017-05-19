@@ -5,6 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
+        android:padding="5dp"
         android:layout_marginLeft="30dp"
         android:id="@+id/lianxidoem_listview_adapter_name"
         android:layout_width="wrap_content"
