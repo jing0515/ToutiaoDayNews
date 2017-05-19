@@ -66,7 +66,7 @@ public class LianxiDoemListviewAdapter extends BaseAdapter {
             holder1.cb.setChecked(false);
         }
 
-      holder1.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder1.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
           @Override
           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
               if(isChecked){
