@@ -14,6 +14,7 @@ import com.bawei.lvwenjing.daynews.bean.TabTitle;
 import com.bawei.lvwenjing.daynews.bean.TabTitleFragmentBean;
 import com.bumptech.glide.Glide;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class LianxiDoemListviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-       ViewHolder1 holder1=null;
+           ViewHolder1  holder1=null;
         if(convertView==null){
             holder1=new ViewHolder1();
             convertView=View.inflate(context, R.layout.lianxidoem_listview_adapter,null);
@@ -59,24 +60,51 @@ public class LianxiDoemListviewAdapter extends BaseAdapter {
 
         }
         holder1.title.setText(list.get(position).getName());
-        if(list.get(position).getDefault_add()==0){
+
+
+        if(list.get(position).getDefault_add()==1){
+
             holder1.cb.setChecked(true);
         }
         else{
+
             holder1.cb.setChecked(false);
         }
 
-        holder1.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-          @Override
-          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-              if(isChecked){
-                  list.get(position).setDefault_add(1);
-              }
-              else{
-                  list.get(position).setDefault_add(0);
-              }
-          }
-      });
+//        holder1.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//          @Override
+//          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+////              if(isChecked){
+////                  list.get(position).setDefault_add(1);
+////              }
+////              else{
+////                  list.get(position).setDefault_add(0);
+////              }
+//              if(isChecked){
+//                  list.get(position).setDefault_add(1);
+//                  checkpos.put(position,true);
+//              }else{
+//                  list.get(position).setDefault_add(0);
+//                  checkpos.put(position, false);
+//              }
+//          }
+//      });
+
+
+        final ViewHolder1 finalHolder = holder1;
+        holder1.cb.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                if(finalHolder.cb.isChecked()){
+                    list.get(position).setDefault_add(1);
+                }
+                else{
+                    list.get(position).setDefault_add(0);
+                }
+            }
+        });
 
 
         return convertView;

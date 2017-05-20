@@ -64,23 +64,6 @@ public class SilpingMenu_left extends Fragment {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
             EventBus.getDefault().postSticky(new YeJianEvent(isChecked));
-            if(isChecked){
-
-
-          //夜间模式aaaaaaaaaa
-      //     view.setBackgroundColor(getResources().getColor(R.color.backgroundColor_night));
-
-            }
-            //白天模式
-            else{
-
-        //        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor
-
-            }
-            //EventBus.getDefault().postSticky(new YeJianEvent(theme));
-
-
-
         }
     });
         shexhiru.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +121,6 @@ public class SilpingMenu_left extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
+
     }
 }

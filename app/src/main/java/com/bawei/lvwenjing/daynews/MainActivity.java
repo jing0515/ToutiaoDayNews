@@ -188,7 +188,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
-      //  windowManager.removeViewImmediate(view);
+       // windowManager.removeViewImmediate(view);
 
     }
 
@@ -237,7 +237,8 @@ public class MainActivity extends SlidingFragmentActivity  {
 
         } else {
             // 日
-            windowManager.removeViewImmediate(view);
+         windowManager.removeView(view);
+
 
         }
     }

@@ -2,7 +2,10 @@ package com.bawei.lvwenjing.daynews;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -42,7 +45,7 @@ public class LianxiDoemActivity extends Activity {
     private ListView listView;
     private Gson gson = new Gson();
     private List<TabTitle.DataBeanX.DataBean> tabdata = new ArrayList<>();
-
+    String path0 = "http://ic.snssdk.com/2/article/v25/stream/?category=";
     //吕文静
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,12 +89,12 @@ public class LianxiDoemActivity extends Activity {
                 }
             }
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                tabdata.get(position).setDefault_add(1);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                tabdata.get(position).setDefault_add(1);
+//            }
+//        });
 
 
     }
@@ -131,53 +134,116 @@ public class LianxiDoemActivity extends Activity {
 
     //牛琼琼  和获取数据加载入数据库
     private void getData() {
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                RequestParams rp = new RequestParams("http://ic.snssdk.com/2/article/v25/stream/?count=20&min_behot_time=1455521444&bd_city=北京市&bd_latitude=40.049317&bd_longitude=116.296499&bd_loc_time=1455521401&loc_mode=5&lac=4527&cid=28883&iid=3642583580&device_id=11131669133&ac=wifi&channel=baidu&aid=13&app_name=news_article&version_code=460&device_platform=android&device_type=SCH-I919U&os_api=19&os_version=4.4.2&uuid=285592931621751&openudid=AC9E172CE2490000");
-
-                x.http().get(rp, new Callback.CommonCallback<String>() {
-
-
-                    @Override
-                    public void onSuccess(String result) {
-                        //  System.out.println("result = ============" + result);
-
-                        Gson gson = new Gson();
-
-                        TuiJianBean tt = gson.fromJson(result, TuiJianBean.class);
-
-                        try {
-                            x.getDb(IApplication.initDB()).save(tt.getData());
-                            //    System.out.println(" =成功================= ");
-                        } catch (DbException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
+        for (TabTitle.DataBeanX.DataBean bean:tabdata) {
+            int default_add = bean.getDefault_add();
+            if (default_add == 1) {
+                String category = bean.getCategory();
+                String path = path0 + category;
+                get1(path);
             }
-        }).start();
+        }
+//
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//
+//                RequestParams rp = new RequestParams("http://ic.snssdk.com/2/article/v25/stream/?count=20&min_behot_time=1455521444&bd_city=北京市&bd_latitude=40.049317&bd_longitude=116.296499&bd_loc_time=1455521401&loc_mode=5&lac=4527&cid=28883&iid=3642583580&device_id=11131669133&ac=wifi&channel=baidu&aid=13&app_name=news_article&version_code=460&device_platform=android&device_type=SCH-I919U&os_api=19&os_version=4.4.2&uuid=285592931621751&openudid=AC9E172CE2490000");
+//
+//                x.http().get(rp, new Callback.CommonCallback<String>() {
+//
+//
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        //  System.out.println("result = ============" + result);
+//
+//                        Gson gson = new Gson();
+//
+//                        TuiJianBean tt = gson.fromJson(result, TuiJianBean.class);
+//
+//                        try {
+//                            for (TabTitle.DataBeanX.DataBean bean:tabdata){
+//                                int default_add = bean.getDefault_add();
+//                                if(default_add==1){
+//                                    String category = bean.getCategory();
+//                                  String path=path0+category;
+//
+//
+//
+//
+//                                }
+//
+//                            }
+//
+//
+//
+//                            x.getDb(IApplication.initDB()).save(tt.getData());
+//                            //    System.out.println(" =成功================= ");
+//                        } catch (DbException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable ex, boolean isOnCallback) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(CancelledException cex) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinished() {
+//
+//                    }
+//                });
+//            }
+//        }).start();
+//
+
+    }
+//王学士 离线下载
+    private void get1(String path11) {
+
+        RequestParams entity = new RequestParams(path11);
+        x.http().get(entity, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+
+                TuiJianBean tt = gson.fromJson(result, TuiJianBean.class);
+                try {
+
+                    x.getDb(IApplication.initDB()).save(tt.getData());
+
+
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
 
 
     }

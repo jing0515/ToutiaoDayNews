@@ -214,10 +214,11 @@ public class TuiJianBean {
         }
     }
 
-    @Table(name = "last")
+    @Table(name ="last")
     public static class DataBean {
         /**
          * read_count : 283676
+         * 数据源
          * media_name : 央视网
          * ban_comment : 0
          * abstract : 原标题：央视网消息：“一带一路”是中国的，更是世界的。2013年，中国国家主席习近平提出共建“丝绸之路经济带”和“21世纪海上丝绸之路”的重大倡议，唤醒了当今世界对千年古丝绸之路辉煌的记忆，得到国际社会广泛关注和积极响应。
@@ -325,11 +326,13 @@ public class TuiJianBean {
         private int hot;
         private String share_url;
         private int has_mp4_video;
+        @Column(name = "source")
         private String source;
         private int comment_count;
         private String article_url;
         private int share_count;
         private int publish_time;
+        //是否有图片
         private boolean has_image;
         private int cell_layout_style;
         private long tag_id;
@@ -369,6 +372,7 @@ public class TuiJianBean {
         private int natant_level;
         private String article_alt_url;
         private String ad_label;
+        @Column(name="image_list")
         private List<ImageBean> image_list;
         private List<?> filter_words;
         private List<ActionListBean> action_list;

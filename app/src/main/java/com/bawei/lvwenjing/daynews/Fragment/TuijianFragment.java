@@ -1,6 +1,10 @@
 package com.bawei.lvwenjing.daynews.Fragment;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
+import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -83,10 +88,33 @@ public class TuijianFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        boolean wifi = isWifi();
+        if(wifi){
+        //有网络
         getShuju(path0 + category + page0 + pageInt, 0);
+        }
+        else {
+
+            try {
+                List<TuiJianBean.DataBean> all = x.getDb(IApplication.initDB()).findAll(TuiJianBean.DataBean.class);
+                listData.addAll(all);
+                tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
+                listView.setAdapter(tuiJianListViewAdapter);
+                System.out.println("all.size() = " + all.size());
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
         springView.setType(SpringView.Type.FOLLOW);
+
+
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
@@ -192,5 +220,17 @@ public class TuijianFragment extends Fragment {
             }
         });
 
+    }
+    public boolean isWifi() {
+
+        ConnectivityManager connMgr = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//获取可用的网络信息
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+//若可用网络不为空，并且已经连接
+        if (networkInfo != null && networkInfo.isConnected()) {
+//判断可用网络的类型，是否为wifi
+            return  true;
+        }
+        return false;
     }
 }
