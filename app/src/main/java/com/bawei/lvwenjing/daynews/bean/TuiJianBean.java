@@ -299,12 +299,12 @@ public class TuiJianBean {
         @Column(name = "media_name")
         private String media_name;
         private int ban_comment;
-        @Column(name = "abstractX")
+    //    @Column(name = "abstractX")
         private String abstractX;
         private int ban_bury;
         private boolean has_video;
         private int article_type;
-        @Column(name = "tag")
+     //   @Column(name = "tag")
         private String tag;
         private ForwardInfoBean forward_info;
         private int has_m3u8_video;
@@ -321,7 +321,7 @@ public class TuiJianBean {
         private String title;
         private int ignore_web_transform;
         private int source_icon_style;
-        @Column(name = "tip")
+     //   @Column(name = "tip")
         private int tip;
         private int hot;
         private String share_url;

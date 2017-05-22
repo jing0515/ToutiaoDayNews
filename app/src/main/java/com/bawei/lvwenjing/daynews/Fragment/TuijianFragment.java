@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lenovo-pc on 2017/5/9.
+ * Created by lenovo-pc on 2017/5/9.fgadfgdfgadfgd
  */
 
 public class TuijianFragment extends Fragment {
@@ -97,7 +97,7 @@ public class TuijianFragment extends Fragment {
         else {
 
             try {
-                List<TuiJianBean.DataBean> all = x.getDb(IApplication.initDB()).findAll(TuiJianBean.DataBean.class);
+                List<TuiJianBean.DataBean> all = x.getDb(IApplication.daoConfig1).findAll(TuiJianBean.DataBean.class);
                 listData.addAll(all);
                 tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
                 listView.setAdapter(tuiJianListViewAdapter);
@@ -107,8 +107,6 @@ public class TuijianFragment extends Fragment {
             }
 
         }
-
-
 
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
