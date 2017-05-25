@@ -89,14 +89,6 @@ public class LianxiDoemActivity extends Activity {
                 }
             }
         });
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                tabdata.get(position).setDefault_add(1);
-//            }
-//        });
-
-
     }
 
     //吕文静网络请求
@@ -142,69 +134,6 @@ public class LianxiDoemActivity extends Activity {
                 get1(path);
             }
         }
-//
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//
-//                RequestParams rp = new RequestParams("http://ic.snssdk.com/2/article/v25/stream/?count=20&min_behot_time=1455521444&bd_city=北京市&bd_latitude=40.049317&bd_longitude=116.296499&bd_loc_time=1455521401&loc_mode=5&lac=4527&cid=28883&iid=3642583580&device_id=11131669133&ac=wifi&channel=baidu&aid=13&app_name=news_article&version_code=460&device_platform=android&device_type=SCH-I919U&os_api=19&os_version=4.4.2&uuid=285592931621751&openudid=AC9E172CE2490000");
-//
-//                x.http().get(rp, new Callback.CommonCallback<String>() {
-//
-//
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        //  System.out.println("result = ============" + result);
-//
-//                        Gson gson = new Gson();
-//
-//                        TuiJianBean tt = gson.fromJson(result, TuiJianBean.class);
-//
-//                        try {
-//                            for (TabTitle.DataBeanX.DataBean bean:tabdata){
-//                                int default_add = bean.getDefault_add();
-//                                if(default_add==1){
-//                                    String category = bean.getCategory();
-//                                  String path=path0+category;
-//
-//
-//
-//
-//                                }
-//
-//                            }
-//
-//
-//
-//                            x.getDb(IApplication.initDB()).save(tt.getData());
-//                            //    System.out.println(" =成功================= ");
-//                        } catch (DbException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable ex, boolean isOnCallback) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(CancelledException cex) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinished() {
-//
-//                    }
-//                });
-//            }
-//        }).start();
-//
 
     }
 //王学士 离线下载

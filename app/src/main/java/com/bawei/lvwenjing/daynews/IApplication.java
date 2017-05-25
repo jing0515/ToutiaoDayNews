@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.Environment;
 
 import com.bawei.lvwenjing.daynews.newsdrag.db.SQLHelper;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
@@ -14,9 +17,6 @@ import java.io.File;
 import java.io.IOException;
 
 
-/**
- * Created by Administrator on 2017/5/10.aaASDFFFFFFFFFFASDFSDFASDFASDFASDFASDFSDFASDFSD
- */
 //王学士
 public class IApplication extends Application {
     private static IApplication mAppApplication;
@@ -26,7 +26,7 @@ public class IApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        initImageLoader();
         mAppApplication = this ;
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
@@ -84,6 +84,19 @@ public class IApplication extends Application {
     }
 
     public void clearAppCache() {
+    }
+    private void initImageLoader() {
+        String path = Environment.getExternalStorageDirectory() + "/imageload";
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .memoryCacheExtraOptions(480, 800)//缓存图片最大的长和宽
+                .threadPoolSize(2)//线程池的数量
+                .threadPriority(4)
+                .memoryCacheSize(2 * 1024 * 1024)//设置内存缓存区大小
+                .diskCacheSize(20 * 1024 * 1024)//设置sd卡缓存区大小
+                .writeDebugLogs()//打印日志内容
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 
 

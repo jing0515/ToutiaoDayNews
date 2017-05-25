@@ -37,10 +37,10 @@ import java.util.List;
  */
 
 public class TitleFragmet extends Fragment {
-     private List<HttpBean.DataBeanX.DataBean> userChannelList;
+    private List<HttpBean.DataBeanX.DataBean> userChannelList;
     private View view;
     private Gson gson;
-    private List<TabTitle.DataBeanX.DataBean> tabdata=new ArrayList<>();
+    private List<TabTitle.DataBeanX.DataBean> tabdata = new ArrayList<>();
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView ivjia;
@@ -56,7 +56,7 @@ public class TitleFragmet extends Fragment {
             @Override
             public void onClick(View v) {
                 //调转 tab选项；
-               startActivity(new Intent(getActivity(), ChannelActivity.class));
+                startActivity(new Intent(getActivity(), ChannelActivity.class));
             }
         });
 
@@ -64,16 +64,13 @@ public class TitleFragmet extends Fragment {
 
         //获取控件
         tabLayout = (TabLayout) view.findViewById(R.id.table);
-        viewPager = (ViewPager)  view.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         //获取适配器
-         getTitle();
-         userChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel());
-        System.out.println("userChannelList = " + userChannelList.size());
-
-        adapter = new IndextAdapter(getChildFragmentManager(),userChannelList,tabdata);
-
+        getTitle();
+        userChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel());
+        adapter = new IndextAdapter(getChildFragmentManager(), userChannelList, tabdata);
         viewPager.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
         //绑定aa
         tabLayout.setupWithViewPager(viewPager);
 //字体颜色
@@ -82,43 +79,36 @@ public class TitleFragmet extends Fragment {
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.hui));
 //模式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
         return view;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-      
+
     }
 
 
     public void getTitle() {
-        String pathTitle="http://ic.snssdk.com/article/category/get/v2/?iid=2939228904";
-        RequestParams entity=new RequestParams(pathTitle);
+        String pathTitle = "http://ic.snssdk.com/article/category/get/v2/?iid=2939228904";
+        RequestParams entity = new RequestParams(pathTitle);
         entity.setConnectTimeout(5000);
         entity.setReadTimeout(5000);
 
 
-        x.http().get(entity,new Callback.CommonCallback<String>() {
+        x.http().get(entity, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 TabTitle tabTitle = gson.fromJson(result, TabTitle.class);
-
                 tabdata.addAll(tabTitle.getData().getData());
-
-                adapter = new IndextAdapter(getChildFragmentManager(),userChannelList,tabdata);
-
+                adapter = new IndextAdapter(getChildFragmentManager(), userChannelList, tabdata);
                 viewPager.setAdapter(adapter);
-
-              //  IndextAdapter adapter = new IndextAdapter(getChildFragmentManager(),tabdata);
-
-             //   viewPager.setAdapter(adapter);
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
 
 
             }
@@ -140,10 +130,10 @@ public class TitleFragmet extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMainActivityEvent(String a) {
 
-                userChannelList.clear();
-                ArrayList<HttpBean.DataBeanX.DataBean> userChannel = (ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel();
-                userChannelList.addAll(userChannel);
-                adapter.notifyDataSetChanged();
+        userChannelList.clear();
+        ArrayList<HttpBean.DataBeanX.DataBean> userChannel = (ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel();
+        userChannelList.addAll(userChannel);
+        adapter.notifyDataSetChanged();
 
     }
 }

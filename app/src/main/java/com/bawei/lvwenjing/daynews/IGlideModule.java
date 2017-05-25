@@ -27,14 +27,6 @@ public class IGlideModule implements GlideModule {
             public DiskCache build() {
                 File cacheLocation = new File(Environment.getExternalStorageDirectory()+"/news");
 
-//                if(cacheLocation.exists()){}
-//                else{
-//                    try {
-//                        cacheLocation.createNewFile();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
                 boolean mkdirs = cacheLocation.mkdirs();
                 System.out.println("mkdirs 创建文件= " + mkdirs);
                 return DiskLruCacheWrapper.get(cacheLocation,1024*1024*100);

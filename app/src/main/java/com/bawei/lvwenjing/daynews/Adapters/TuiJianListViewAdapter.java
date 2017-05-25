@@ -92,9 +92,6 @@ public class TuiJianListViewAdapter extends BaseAdapter {
 // 1               final String tag3 = (String) mHolder.item_image_2.getTag(R.id.imageloader_uri);
 
 
-//                loadImage(imgUrlList.get(0).getUrl(),mHolder.item_image_0,tag1);
-//                loadImage(imgUrlList.get(1).getUrl(),mHolder.item_image_1,tag2);
-//                loadImage(imgUrlList.get(2).getUrl(),mHolder.item_image_2,tag3);
                 loadImage(imgUrlList.get(0).getUrl(),mHolder.item_image_0,"");
                 loadImage(imgUrlList.get(1).getUrl(),mHolder.item_image_1,"");
                 loadImage(imgUrlList.get(2).getUrl(),mHolder.item_image_2,"");
@@ -103,10 +100,6 @@ public class TuiJianListViewAdapter extends BaseAdapter {
         }else if (list.get(position).getMiddle_image()!=null){
             mHolder.right_image.setVisibility(View.VISIBLE);
             mHolder.item_image_layout.setVisibility(View.GONE);
-        //    final String tag = (String) mHolder.right_image.getTag(R.id.imageloader_uri);
-
-           // loadImage(list.get(position).getMiddle_image().getUrl(),mHolder.right_image,tag);
-
            loadImage(list.get(position).getDisplay_url(),mHolder.right_image,"");
 
         }
@@ -120,33 +113,13 @@ public class TuiJianListViewAdapter extends BaseAdapter {
                 View view1 = LayoutInflater.from(context).inflate(R.layout.pop,null,false);
                 PopupWindow popupWindow = new PopupWindow(view1, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.setFocusable(true);
-//				popupWindow.showAsDropDown(mHolder.textViewDel);
                 popupWindow.showAtLocation(mHolder.textViewDel, Gravity.LEFT,100,0);
             }
         });
         return view;
-//        ViewHolder1  holder1;
-//        if(convertView==null){
-//            holder1=new ViewHolder1();
-//            convertView=View.inflate(context, R.layout.tuijianfragment_listview_adapter1,null);
-//            holder1.title= (TextView) convertView.findViewById(R.id.tuijianfragment_listivew_adapter_title);
-//            holder1.from= (TextView) convertView.findViewById(R.id.tuijianfragment_listivew_adapter_from);
-//            holder1.iv= (ImageView) convertView.findViewById(R.id.tuijianfragment_listivew_adapter_image);
-//            convertView.setTag(holder1);
-//        }
-//        else{
-//            holder1= (ViewHolder1) convertView.getTag();
-//        }
-//        holder1.title.setText(list.get(position).getTitle());
-//        holder1.from.setText(list.get(position).getSource());
-//        Glide.with(context).load(list.get(position).getMiddle_image().getUrl()).into(holder1.iv);
-//        return convertView;
+
     }
     class ViewHolder{
-//        TextView title;
-//        TextView from;
-//        ImageView iv;
-//title
 TextView item_title;
         //新闻源
         TextView item_media_name;

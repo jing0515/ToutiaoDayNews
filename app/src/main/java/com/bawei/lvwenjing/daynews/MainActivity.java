@@ -182,17 +182,11 @@ public class MainActivity extends SlidingFragmentActivity  {
         }
     };
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
-
     }
-
-
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

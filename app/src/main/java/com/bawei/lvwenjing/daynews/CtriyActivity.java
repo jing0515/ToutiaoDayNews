@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,6 +60,7 @@ public class CtriyActivity extends Activity {
 
 
     }
+
     private void initViews() {
         mEtCityName = (EditTextWithDel) findViewById(R.id.et_search);
         sideBar = (SideBar) findViewById(R.id.sidrbar);
@@ -97,7 +100,7 @@ public class CtriyActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 mTvTitle.setText(((CitySortModel) adapter.getItem(position - 1)).getName());
-                Toast.makeText(getApplication(), ((CitySortModel) adapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), ((CitySortModel) adapter.getItem(position - 1)).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -129,11 +132,13 @@ public class CtriyActivity extends Activity {
         View headView = getLayoutInflater().inflate(R.layout.headview, null);
         GridView mGvCity = (GridView) headView.findViewById(R.id.gv_hot_city);
         String[] datas = getResources().getStringArray(R.array.city);
-        ArrayList<String> cityList = new ArrayList<>();
+        final ArrayList<String> cityList = new ArrayList<>();
         for (int i = 0; i < datas.length; i++) {
             cityList.add(datas[i]);
         }
+
         CityAdapter adapter = new CityAdapter(getApplicationContext(), R.layout.gridview_item, cityList);
+
         mGvCity.setAdapter(adapter);
         return headView;
     }
@@ -153,6 +158,7 @@ public class CtriyActivity extends Activity {
                 String name = sortModel.getName();
                 if (name.toUpperCase().indexOf(filterStr.toString().toUpperCase()) != -1 || PinyinUtils.getPingYin(name).toUpperCase().startsWith(filterStr.toString().toUpperCase())) {
                     mSortList.add(sortModel);
+
                 }
             }
         }

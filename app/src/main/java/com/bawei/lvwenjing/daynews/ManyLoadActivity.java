@@ -76,7 +76,7 @@ public class ManyLoadActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        windowManager.removeViewImmediate(view);
+     //   windowManager.removeViewImmediate(view);
     }
     // 日 夜切换
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)

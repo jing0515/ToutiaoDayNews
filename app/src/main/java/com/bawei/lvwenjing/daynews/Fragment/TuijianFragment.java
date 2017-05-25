@@ -1,5 +1,6 @@
 package com.bawei.lvwenjing.daynews.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +15,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bawei.lvwenjing.daynews.Adapters.TuiJianListViewAdapter;
+import com.bawei.lvwenjing.daynews.Adapters.ViewpagerAdapter;
 import com.bawei.lvwenjing.daynews.CtriyActivity;
 import com.bawei.lvwenjing.daynews.IApplication;
 import com.bawei.lvwenjing.daynews.MainActivity;
@@ -57,51 +60,35 @@ public class TuijianFragment extends Fragment {
     private Gson gson;
     private TuiJianListViewAdapter tuiJianListViewAdapter;
     private String page0 = "&min_behot_time=";
-    private List<TuiJianBean.DataBean> listData=new ArrayList<>();
+    private List<TuiJianBean.DataBean> listData = new ArrayList<>();
     // private ArrayList<HttpBean.DataBeanX.DataBean> userChannelList;
     private int pageInt = 1494642113;
-//    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            int what = msg.what;
-//            List<TabTitleFragmentBean.DataBean> listData1 = (List<TabTitleFragmentBean.DataBean>) msg.obj;
-//
-//        }
-//    };
+    String[] path = { "http://img.zcool.cn/community/01033456f114f932f875a94467912f.jpg@900w_1l_2o_100sh.jpg","http://img4.imgtn.bdimg.com/it/u=1393475592,2435628544&fm=23&gp=0.jpg"};
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tuijianfragment, container, false);
-
-
         initView(view);
-     
         Bundle arguments = getArguments();
         category = arguments.getString("category");
         gson = new Gson();
-
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         boolean wifi = isWifi();
-        if(wifi){
-        //有网络
-        getShuju(path0 + category + page0 + pageInt, 0);
-        }
-        else {
-
+        if (wifi) {
+            //有网络
+            getShuju(path0 + category + page0 + pageInt, 0);
+        } else {
             try {
                 List<TuiJianBean.DataBean> all = x.getDb(IApplication.daoConfig1).findAll(TuiJianBean.DataBean.class);
                 listData.addAll(all);
                 tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
                 listView.setAdapter(tuiJianListViewAdapter);
-                System.out.println("all.size() = " + all.size());
             } catch (DbException e) {
                 e.printStackTrace();
             }
@@ -111,8 +98,6 @@ public class TuijianFragment extends Fragment {
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
         springView.setType(SpringView.Type.FOLLOW);
-
-
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
@@ -136,7 +121,20 @@ public class TuijianFragment extends Fragment {
     private void initView(View view) {
         springView = (SpringView) view.findViewById(R.id.tuijianfragment_springview);
         listView = (ListView) view.findViewById(R.id.tuijianfragment_listivew);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //填充布局
+                View inflate = View.inflate(getActivity(), R.layout.alerdialog_builder_viewpaer, null);
+                ViewPager viewPager = (ViewPager) inflate.findViewById(R.id.alerdialog_viewpager);
+                ViewpagerAdapter adapter = new ViewpagerAdapter(path, getActivity());
+                viewPager.setAdapter(adapter);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setView(inflate);
+                builder.show();
 
+            }
+        });
 
     }
 
@@ -162,10 +160,10 @@ public class TuijianFragment extends Fragment {
             public void onSuccess(String result) {
                 if (type == 0) {
 
-                    TuiJianBean tuiJianBean = gson.fromJson(result,TuiJianBean.class);
+                    TuiJianBean tuiJianBean = gson.fromJson(result, TuiJianBean.class);
                     List<TuiJianBean.DataBean> data = tuiJianBean.getData();
 
-                 //   System.out.println("data.size()+data.get(0).getTitle() = " + data.size()+data.get(0).getTitle());
+                    //   System.out.println("data.size()+data.get(0).getTitle() = " + data.size()+data.get(0).getTitle());
                     listData.addAll(data);
                     tuiJianListViewAdapter = new TuiJianListViewAdapter(getActivity(), listData);
                     listView.setAdapter(tuiJianListViewAdapter);
@@ -181,23 +179,17 @@ public class TuijianFragment extends Fragment {
                         });
                         listView.addHeaderView(tv);
                     }
-
-
                 } else if (type == 1) {
-                    System.out.println("111111111");
                     TuiJianBean tuiJianBean = gson.fromJson(result, TuiJianBean.class);
                     List<TuiJianBean.DataBean> data1 = tuiJianBean.getData();
                     listData.clear();
                     listData.addAll(data1);
                     tuiJianListViewAdapter.notifyDataSetChanged();
-
                 } else if (type == 2) {
                     TuiJianBean tuiJianBean = gson.fromJson(result, TuiJianBean.class);
                     List<TuiJianBean.DataBean> data1 = tuiJianBean.getData();
                     listData.addAll(listData.size(), data1);
                     tuiJianListViewAdapter.notifyDataSetChanged();
-
-
                 }
 
             }
@@ -219,15 +211,16 @@ public class TuijianFragment extends Fragment {
         });
 
     }
+
     public boolean isWifi() {
 
-        ConnectivityManager connMgr = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-//获取可用的网络信息
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        //获取可用的网络信息
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-//若可用网络不为空，并且已经连接
+        //若可用网络不为空，并且已经连接
         if (networkInfo != null && networkInfo.isConnected()) {
-//判断可用网络的类型，是否为wifi
-            return  true;
+            //判断可用网络的类型，是否为wifi
+            return true;
         }
         return false;
     }
