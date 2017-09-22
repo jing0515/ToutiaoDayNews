@@ -188,7 +188,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
-       // windowManager.removeViewImmediate(view);
 
     }
 
