@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lenovo-pc on 2017/5/9.
+ * Created by lenovo-pc on 2017/5/9.ssss
  */
 
 public class TitleFragmet extends Fragment {
@@ -68,13 +68,13 @@ public class TitleFragmet extends Fragment {
         //获取适配器
          getTitle();
          userChannelList = ((ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel());
-
+        System.out.println("userChannelList = " + userChannelList.size());
 
         adapter = new IndextAdapter(getChildFragmentManager(),userChannelList,tabdata);
 
         viewPager.setAdapter(adapter);
 
-        //绑定
+        //绑定aa
         tabLayout.setupWithViewPager(viewPager);
 //字体颜色
         tabLayout.setTabTextColors(getResources().getColor(R.color.hui), getResources().getColor(R.color.colorAccent));
@@ -105,6 +105,10 @@ public class TitleFragmet extends Fragment {
                 TabTitle tabTitle = gson.fromJson(result, TabTitle.class);
 
                 tabdata.addAll(tabTitle.getData().getData());
+
+                adapter = new IndextAdapter(getChildFragmentManager(),userChannelList,tabdata);
+
+                viewPager.setAdapter(adapter);
 
               //  IndextAdapter adapter = new IndextAdapter(getChildFragmentManager(),tabdata);
 
@@ -140,5 +144,6 @@ public class TitleFragmet extends Fragment {
                 ArrayList<HttpBean.DataBeanX.DataBean> userChannel = (ArrayList<HttpBean.DataBeanX.DataBean>) HttpBeanManage.getManage(IApplication.getApp().getSQLHelper()).getUserChannel();
                 userChannelList.addAll(userChannel);
                 adapter.notifyDataSetChanged();
+
     }
 }

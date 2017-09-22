@@ -218,9 +218,13 @@ public class LianxiDoemActivity extends Activity {
 
                 TuiJianBean tt = gson.fromJson(result, TuiJianBean.class);
                 try {
+                    x.getDb(IApplication.daoConfig1).delete(TuiJianBean.DataBean.class);
 
-                    x.getDb(IApplication.initDB()).save(tt.getData());
+                    for (TuiJianBean.DataBean bean:tt.getData()){
+                        x.getDb(IApplication.getDaoConfig()).save(bean);
+                    }
 
+                    System.out.println("\"保存\" = " + "保存");
 
                 } catch (DbException e) {
                     e.printStackTrace();

@@ -16,6 +16,7 @@ import com.bawei.lvwenjing.daynews.R;
 import com.bawei.lvwenjing.daynews.bean.TabTitleFragmentBean;
 import com.bawei.lvwenjing.daynews.bean.TuiJianBean;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -115,21 +116,15 @@ public class TuiJianListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
 
 
+
                 View view1 = LayoutInflater.from(context).inflate(R.layout.pop,null,false);
                 PopupWindow popupWindow = new PopupWindow(view1, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
                 popupWindow.setFocusable(true);
 //				popupWindow.showAsDropDown(mHolder.textViewDel);
-
                 popupWindow.showAtLocation(mHolder.textViewDel, Gravity.LEFT,100,0);
-
-
             }
         });
-
         return view;
-
-
 //        ViewHolder1  holder1;
 //        if(convertView==null){
 //            holder1=new ViewHolder1();
@@ -179,7 +174,8 @@ TextView item_title;
 //		if(!path.equals(tag)){
 
      //1  imageView.setTag(R.id.imageloader_uri,path);
-        Glide.with(context).load(path).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).into(imageView);
+       Glide.with(context).load(path).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).into(imageView);
+      //   Glide.with(context).load(path).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).into(imageView);
 
 //		}
 
